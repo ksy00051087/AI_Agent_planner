@@ -144,9 +144,10 @@ def degree_job(message: str, rules: dict | None) -> str | None:
     text = (message or "").replace(" ", "")
     for ex in (rules or {}).get("degree_exceptions") or []:
         text = text.replace(ex, "")
-    # '치과의사' 가 '의사' 로, '한약사' 가 '약사' 로 잡히지 않게 긴 낱말부터
-    jobs = sorted((rules or {}).get("degree_required") or {}, key=len, reverse=True)
-    return next((w for w in jobs if w in text), None)
+    required = (rules or {}).get("degree_required") or {}
+    # 다르게 부르는 말('초등학교 교사' → 초등교사)도 같은 직업으로. '치과의사' 가 '의사' 로 잡히지 않게 긴 낱말부터
+    words = {**{j: j for j in required}, **{a: j for a, j in ((rules or {}).get("degree_aliases") or {}).items() if j in required}}
+    return next((words[w] for w in sorted(words, key=len, reverse=True) if w in text), None)
 
 
 def refine_keywords(keywords: list[str], rules: dict | None) -> tuple[list[str], list[dict]]:
@@ -202,7 +203,8 @@ def make_analyze(deps: AgentDeps, emitter_of):
             c = {**(state.get("conditions") or {}), "targets": [job], "keywords": []}
             em.node_exit(NODE, intent="fact_lookup", conditions={"targets": [job]})
             return {"intent": "fact_lookup", "intent_reason": f"{job} 학과 재학 — 국가시험 일정 조회",
-                    "conditions": c, "missing": [], "interpretations": [], "degree_pending": None, "error": None}
+                    "conditions": c, "missing": [], "interpretations": [], "degree_pending": None,
+                    "degree_lookup": job, "error": None}
         if sel is not None and state.get("conditions"):
             # 화면 선택지로 고른 보유 자격 · 같이 준비할 기본 자격 — 해석할 것이 없어 LLM 을 부르지 않는다
             c = dict(state["conditions"])

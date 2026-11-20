@@ -5,28 +5,35 @@
 ## 1. 원칙
 
 - **확인하지 않은 값을 지어내지 않는다.** 날짜 · 응시료 · 합격률 · 교재는 Tool 결과에서만, 판정은 `app/domain/` 순수 함수가 한다.
-- **LLM 은 요청 해석에만** 쓴다(의도 · 조건 추출). Tool 순서 · 판정 · 재계획 · 응답 문장은 규칙(코드)이다. 그래서 응답에 나오는 숫자는 모두 출처가 있다.
+- **LLM 은 요청 해석에만** 쓴다(의도 · 조건 추출, 목표 점검, 웹 조각에서 이름 · 날짜 추출 — 추출 결과는 코드가 원문과 대조). Tool 순서 · 판정 · 재계획 · 응답 문장은 규칙(코드)이다. 그래서 응답에 나오는 숫자는 모두 출처가 있다.
 - 확인할 수 없는 값은 이름을 붙여 드러낸다: "추정"(미공고 일정), "서비스 기준값"(공부 기간), "확인 불가"(출처 없음).
 
 ## 2. 실행 그래프 (LangGraph)
 
 ```
-START → analyze ─┬─ 오류 · 인사 · 저장 · 되묻기 ───────────────────────────────→ respond → END
-                 └─ 계획 · 수정 · 사실조회 → plan → execute ─┬─ 치명적 실패 ──────→ respond
-                                                  ↑           └→ judge ─┬─ 사실조회 · 배치 없음 → respond
-                                                  │                     ├─ 재계획 필요 → replan ┐
-                                                  └─────────────────────┼────────────────────────┘
-                                                                        └─ 배치 있음 → enrich → respond
+START → analyze ─┬─ 오류 · 인사 · 저장 · 되묻기 · 학과 질문 ──────────────────────→ respond → END
+                 ├─ 직업 · 낱말로 새 계획 → screen ─┬─ 직위 · 모호 · 직업 아님 ──→ respond
+                 │                                  └─ 통과 ─┐
+                 └─ 계획 · 수정 · 사실조회 ──────────────────┴→ plan → execute ─┬─ 치명적 실패 · 보유 자격 패널 → respond
+                                                                  ↑             └→ judge ─┬─ 사실조회 · 배치 없음 → (external) → respond
+                                                                  │                       ├─ 재계획 필요 → replan ┐
+                                                                  └───────────────────────┼────────────────────────┘
+                                                                                          └─ 배치 있음 → enrich → (external) → respond
 ```
+
+노드 9개: analyze · screen · plan · execute · judge · replan · enrich · external · respond (`app/agent/graph.py`).
+괄호 친 노드(screen · external)는 조건이 맞을 때만 거친다.
 
 | 노드 | 하는 일 | LLM | 상태에 쓰는 값 |
 |---|---|---|---|
-| analyze (F3005 · F3010) | 의도 분류 · 조건 추출 → 코드 검증 → 이전 조건과 병합 → 되묻기 판단 | ✅ 구조화 출력 1회 | intent, conditions, missing, interpretations, warnings |
+| analyze (F3005 · F3010) | 의도 분류 · 조건 추출 → 코드 검증 → 이전 조건과 병합 → 되묻기 판단. 학과가 필요한 직업(의사 · 초등교사 …)의 계획 요청이면 학과 재학 여부를 먼저 묻는다 | ✅ 구조화 출력 1회 (화면 선택지 답이면 ❌) | intent, conditions, missing, interpretations, warnings, degree_panel |
+| screen (목표 점검) | 직업 · 낱말로 새 계획을 요청했을 때 문장 전체로 '자격 준비로 이어지는 목표인가' 판정. 직위 · 모호하면 맥락에 맞는 직업을 선택지로, 직업이 아니면 사용법 안내, 통과면 실제 직무명으로 고침 (`app/agent/screen.py`) | ✅ 구조화 출력 1회 | screen, conditions.job |
 | plan (F3006) | 의도 · 조건으로 Tool 순서 결정 | ❌ | steps, batch_end |
 | execute (F3007) | 후보 검색 → 순위(흐름) → 상위 후보 일정 병렬 조회 | ❌ | candidates, tool_results, failures, fatal |
 | judge (F3008) | `domain.arrange` 로 배치, 재계획 필요 여부 | ❌ | arrangement, needs_replan |
 | replan (F3009) | 다음 후보 추가 또는 기한 완화 | ❌ | replan_count, replan_log, batch_end · ignore_deadline |
 | enrich (F3004) | 배치된 자격의 교재 | ❌ | books |
+| external (외부 자격 탐색) | 직업 목표의 관련 자격 중 큐넷 · 공공데이터에 없는 것을 웹 조각에서 찾아 '비공식' 칸으로. 이름 · 날짜는 조각에 글자 그대로 있을 때만 (`app/agent/external.py`) | ✅ 추출만 (코드가 원문 대조) | route_meta.external |
 | respond (F3011) | 구조화된 결과 → 문장 | ❌ (템플릿) | answer, last_plan |
 
 ## 3. 조건 추출과 검증 (F3005)
@@ -158,3 +165,4 @@ PlannerAgent ──Emitter.emit()──▶ EventBus.publish() ──▶ LoggingA
 | 후보 순서: 낮은 등급 → 과목 겹침 → 시험일 | **합격자 수 기반 계열 흐름** | 실제 실행에서 사람들이 따는 흐름과 다른 결과 (요구사항 정의서 4장) |
 | respond 에서 LLM 이 문장 작성 | 템플릿 | 값을 지어낼 여지를 없앰 |
 | 교재는 execute 에서 | enrich 노드 분리 | 배치가 확정된 자격에만 부르기 위해 |
+| 그래프 7노드 | screen · external 추가 (9노드) | 직위 · 직업 아닌 목표를 Tool 전에 거르고, 큐넷 밖 자격을 공식 계획과 섞지 않고 따로 보여 주기 위해 |

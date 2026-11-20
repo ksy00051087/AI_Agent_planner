@@ -4612,9 +4612,9 @@
       function renderDegreePanel(r) {
         const d = r.view.degree_panel;
         return `<div class="ans screen-box degree-box"><div class="kicker">${esc(d.job)} · 계획 전에 확인</div>
-    <p class="sc-reason">${esc(d.job)}는 <b>${esc(d.major)}</b>를 나와야 국가시험을 볼 수 있어요.<br>지금 ${esc(d.major)}에 다니고 있습니까?</p>
+    <p class="sc-reason">${esc(d.job)}는 <b>${esc(d.major)}</b>를 나와야 시험을 볼 수 있어요.<br>지금 ${esc(d.major)}에 다니고 있습니까?</p>
     <div class="sc-opts"><button type="button" data-degree="yes">예</button><button type="button" data-degree="no">아니오</button></div>
-    <div class="t-meta">예 → ${esc(d.job)} 국가시험 일정을 보여 드려요.</div></div>`;
+    <div class="t-meta">예 → ${esc(d.job)} 시험 일정을 보여 드려요.</div></div>`;
       }
       document.addEventListener("click", (ev) => {
         const b = ev.target.closest("[data-degree]");

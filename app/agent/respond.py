@@ -403,6 +403,11 @@ def _docs_text(state: PlannerState) -> str:
 
 def _lookup_text(state: PlannerState) -> str:
     items = state.get("lookup") or []
+    job = state.get("degree_lookup")
+    if job and not items:
+        # 학과 재학 '예' 뒤 — 교원 임용시험처럼 연결된 출처에 일정이 없는 경우
+        return (f"{job} 시험 일정은 연결된 출처(큐넷 · 공공데이터)에 없어 보여 드릴 수 없어요. "
+                "시행기관(교원 임용시험은 시 · 도 교육청) 공고를 확인해 주세요.")
     out = []
     for q in items:
         out.append(f"**{q['name']}** ({q.get('organization') or q.get('source')})")
@@ -458,7 +463,7 @@ def make_respond(deps, emitter_of):
             answer = "사용자님. 정말 죄송하지만 이건 제가 계획을 할수가 없습니다.... 당장 수능준비나 하이소.."
         elif state.get("degree_panel"):
             dp = state.get("degree_panel") or {}
-            answer = (f"{dp['job']}는 {dp['major']}를 나와야 국가시험을 볼 수 있어요.\n"
+            answer = (f"{dp['job']}는 {dp['major']}를 나와야 시험을 볼 수 있어요.\n"
                       f"지금 {dp['major']}에 다니고 있습니까? (예 / 아니오)")
         elif state.get("error"):
             answer = "요청을 해석하는 중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요."

@@ -32,7 +32,7 @@ verdict
              '삼성전자 반도체 엔지니어' 처럼 회사가 붙어도 직무가 분명하면 ok).
 - position : 특정 회사 · 조직의 대표 · CEO · 회장 · 임원 · 창업자처럼 자격 준비로 오르는 자리가 아닌 '직위' 다 (스페이스X 대표, 삼성 회장).
 - vague    : 무엇을 하고 싶은지 알 수 없을 만큼 모호하거나, 뜻을 알 수 없는 말이다.
-- not_job  : 직업이 아니다 (부자 되기, 유명해지기, 행복하게 살기).
+- not_job  : 직업이 아니다 (부자 되기, 유명해지기, 행복하게 살기, 백수 · 취업 준비생 · 학생 · 프리랜서 같은 '상태').
 
 core_job : ok 일 때 맥락 속 실제 직무 이름 (회사명 · 꾸밈말을 뗀다). 예) '스페이스X 로켓 엔지니어' → '항공우주 엔지니어'. 아니면 null.
 reason   : 사용자에게 보여 줄 한두 문장. 판정 이유를 담담하게. 사과 · 훈계 · 과장 없이.
@@ -80,6 +80,10 @@ def make_screen(deps: AgentDeps, emitter_of):
         out["suggestions"] = [s.strip() for s in out.get("suggestions") or [] if s and s.strip()][:4]
         em.llm_decision(NODE, "screen", {"verdict": out["verdict"], "core_job": out.get("core_job"),
                                          "suggestions": out["suggestions"]}, out.get("reason") or "")
+        if out["verdict"] == "not_job":
+            # 직업이 아닌 목표(백수 · 부자 되기 …) — 다른 직업을 짐작해 권하지 않고 사용법 안내로 답한다
+            em.node_exit(NODE, verdict="not_job")
+            return {"screen": None, "intent": "chat"}
         update: dict = {"screen": out if out["verdict"] != "ok" else None}
         core = (out.get("core_job") or "").strip()
         if out["verdict"] == "ok" and core and core != c.get("job"):

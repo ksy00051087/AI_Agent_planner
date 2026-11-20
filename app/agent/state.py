@@ -115,4 +115,5 @@ class PlannerState(TypedDict, total=False):
     screen: dict | None          # 목표 점검에서 걸러진 경우 {verdict, reason, suggestions}
     degree_panel: dict | None    # 학과가 필요한 직업 — 그 학과에 다니는지 묻는다 {"job", "major"} (화면이 예 · 아니오를 그린다)
     degree_pending: str | None   # 학과 질문을 보낸 직업 (답을 받으면 비운다)
+    degree_lookup: str | None    # 학과 재학 '예' 로 시험 일정을 찾는 직업 (이번 요청만)
     held_panel: dict | None      # 물을 선택지 {"tracks": [{name, examples}], "field": [{chain, items}], "basics": [...]}

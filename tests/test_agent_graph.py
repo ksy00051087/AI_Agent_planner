@@ -550,6 +550,14 @@ def test_직위는_Tool_없이_걸러_내고_맥락에_맞는_직업을_제안�
     assert "항공우주 엔지니어" in res["answer"] and nodes(res) == ["analyze", "screen", "respond"]
 
 
+def test_직업이_아닌_목표는_다른_직업을_권하지_않고_사용법_안내():
+    from app.agent.respond import USAGE
+    a, tools, _ = _screen_agent("not_job", suggestions=["프리랜서", "취업 준비생"])
+    res = a.run("s4", "스페이스x 대표", today=TODAY)
+    assert tools.calls == [] and res["view"]["screen"] is None
+    assert res["answer"] == USAGE and nodes(res) == ["analyze", "screen", "respond"]
+
+
 def test_통과하면_맥락_속_실제_직무로_고쳐서_진행():
     a, tools, _ = _screen_agent("ok", core="항공우주 엔지니어")
     res = a.run("s2", "스페이스x 로켓 엔지니어", today=TODAY)
@@ -615,3 +623,12 @@ def test_조각_날짜의_연도는_코드가_정한다():
     assert _date_of("2027년 3월 14일", t) == (date(2027, 3, 14), True)
     assert _date_of("상시", t) == (None, False)
     assert _web_names(["투자분석사", "금융투자분석사", "없는자격"], ["금융투자분석사 증권분석사"]) == ["금융투자분석사"]
+
+
+def test_다르게_부르는_직업도_학과_직업으로_본다():
+    from app.agent.analyze import degree_job
+    rules = {"degree_required": {"초등교사": "교육대학교", "의사": "의학과", "치과의사": "치의학과"},
+             "degree_aliases": {"초등학교교사": "초등교사", "초등선생님": "초등교사"}}
+    assert degree_job("초등학교 교사 되고 싶어", rules) == "초등교사"
+    assert degree_job("초등 선생님 할래", rules) == "초등교사"
+    assert degree_job("치과 의사", rules) == "치과의사"

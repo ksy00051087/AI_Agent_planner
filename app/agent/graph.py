@@ -26,7 +26,7 @@ PER_TURN_RESET = {
     "missing": [], "warnings": [], "interpretations": [], "steps": [], "tool_results": {}, "failures": [],
     "candidates": [], "arrangement": None, "documents": [], "busy_dates": [], "route_meta": {}, "lookup": None, "books": {}, "replan_count": 0, "replan_log": [],
     "needs_replan": None, "ignore_deadline": False, "fatal": None, "error": None, "batch_end": 0,
-    "held_panel": None, "selection": None, "screen": None, "degree_panel": None,
+    "held_panel": None, "selection": None, "screen": None, "degree_panel": None, "degree_lookup": None,
 }
 
 
@@ -37,7 +37,7 @@ def _after_analyze(s: PlannerState) -> str:
 
 
 def _after_screen(s: PlannerState) -> str:
-    return "respond" if s.get("screen") else "plan"
+    return "respond" if s.get("screen") or s.get("intent") == "chat" else "plan"
 
 
 def _after_execute(s: PlannerState) -> str:

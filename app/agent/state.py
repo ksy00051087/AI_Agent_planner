@@ -113,4 +113,6 @@ class PlannerState(TypedDict, total=False):
     selection: dict | None       # 화면에서 고른 값 {"held", "include", "tracks"} — 있으면 LLM 없이 조건에 반영
     held_checked: bool           # 이 주제에서 보유 자격을 이미 물었는가
     screen: dict | None          # 목표 점검에서 걸러진 경우 {verdict, reason, suggestions}
+    degree_panel: dict | None    # 학과가 필요한 직업 — 그 학과에 다니는지 묻는다 {"job", "major"} (화면이 예 · 아니오를 그린다)
+    degree_pending: str | None   # 학과 질문을 보낸 직업 (답을 받으면 비운다)
     held_panel: dict | None      # 물을 선택지 {"tracks": [{name, examples}], "field": [{chain, items}], "basics": [...]}

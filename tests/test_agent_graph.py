@@ -85,7 +85,9 @@ def agent(table, tools=None, limit=2, bus=None, ask_held=False):
     """ask_held=False — 보유 자격 패널을 건너뛰는 기존 시나리오. 패널 흐름은 아래 전용 테스트에서 본다"""
     tools = tools or FakeTools()
     rel = {"field_groups": {}, "ladders": [], "expert": [], "prep_weeks": {}, "basics": BASICS, "tracks": TRACKS,
-           "keyword_rules": {"blocked": ["폭탄", "테러"], "generic": ["제조", "관리"]}}
+           "keyword_rules": {"blocked": ["폭탄", "테러"], "generic": ["제조", "관리"],
+                             "degree_required": {"의사": "의학과", "한의사": "한의학과", "치과의사": "치의학과", "약사": "약학과"},
+                             "degree_exceptions": ["의사소통", "제약사"]}}
     deps = AgentDeps(run_tool=tools, tool_catalog=lambda: [], field_options=lambda: ["전기"],
                      analyze_llm=analyzer(table), replan_limit=limit, relations=lambda: rel, ask_held=ask_held)
     return PlannerAgent(deps, bus), tools
@@ -340,6 +342,45 @@ def test_자격_계획_대상이_아닌_요청은_Tool없이_거절():
     assert tools.calls == [] and res["draft_plan"] == []
     assert "도와드릴 수 없습니다" in res["answer"]
     assert any(e["type"] == "blocked_request" for e in res["events"])
+
+
+# 학과를 나와야만 갈 수 있는 직업(의사 · 한의사 · 약사 …)은 Tool 없이 수능 안내
+def test_학과가_필요한_직업은_Tool없이_수능_안내():
+    for msg, job in [("한의사 되고 싶어", "한의사"), ("약사가 꿈이야 내년까지", "약사"), ("치과 의사 할래", "치과의사")]:
+        a, tools = agent({msg: out("plan_create", keywords=["의사"])})
+        res = a.run("d1", msg, today=TODAY)
+        assert tools.calls == [] and res["draft_plan"] == []
+        assert res["view"]["degree_panel"]["job"] == job and "다니고 있습니까" in res["answer"]
+        assert any(e["type"] == "degree_required" for e in res["events"])
+        # 아니오 → 수능 안내 (LLM · Tool 없이)
+        res = a.run("d1", "아니오", today=TODAY, selection={"enrolled": False})
+        assert "수능준비" in res["answer"] and tools.calls == []
+
+
+def test_학과에_다니면_국가시험_일정을_보여준다():
+    msg = "한의사 되고 싶어"
+    a, tools = agent({msg: out("plan_create", keywords=["한의사"])})
+    a.run("d3", msg, today=TODAY)
+    res = a.run("d3", "예", today=TODAY, selection={"enrolled": True})
+    assert res["intent"] == "fact_lookup" and res["conditions"]["targets"] == ["한의사"]
+    assert "수능준비" not in res["answer"] and res["view"]["degree_panel"] is None
+    assert any(name == "search_qualifications" for name, _ in tools.calls)
+
+
+def test_학과가_필요한_직업도_일정을_묻는_건_답한다():
+    msg = "의사 국가시험 언제야?"
+    a, tools = agent({msg: out("fact_lookup", targets=["의사"])})
+    res = a.run("d2", msg, today=TODAY)
+    assert "수능준비" not in res["answer"]
+    assert not any(e["type"] == "degree_required" for e in res["events"])
+
+
+def test_의사소통_제약사는_학과_직업으로_보지_않는다():
+    from app.agent.analyze import degree_job
+    rules = {"degree_required": {"의사": "의학과", "약사": "약학과"}, "degree_exceptions": ["의사소통", "제약사"]}
+    assert degree_job("의사소통 잘하는 직업", rules) is None
+    assert degree_job("제약사 영업직 취업", rules) is None
+    assert degree_job("의사 될래", rules) == "의사"
 
 
 # '제조' 같은 꾸밈말만으로 다른 분야 자격(떡제조 · 신발제조)이 걸리지 않게 — 다른 검색어가 있으면 뺀다

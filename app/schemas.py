@@ -14,6 +14,7 @@ HHMM = r"^([01]\d|2[0-3]):[0-5]\d$"
 class HeldSelection(BaseModel):
     """'지금 가진 자격' 패널에서 고른 값 — 대화로 쓰지 않고 선택지로 보낸다"""
     held: list[str] = Field(default=[], max_length=40, description="이미 가진 자격 이름")
+    enrolled: bool | None = Field(None, description="학과 질문 패널의 답 — 그 학과에 다니고 있으면 true (예), 아니면 false (아니오)")
     include: list[str] = Field(default=[], max_length=10, description="같이 준비할 기본 자격 이름")
     tracks: list[str] = Field(default=[], max_length=10, description="가고 싶은 진로 방향(직업군). 비우면 분야 전체")
 

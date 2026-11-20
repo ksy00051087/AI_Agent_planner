@@ -138,6 +138,17 @@ def blocked_word(message: str, rules: dict | None) -> str | None:
     return next((w for w in (rules or {}).get("blocked") or [] if w in text), None)
 
 
+def degree_job(message: str, rules: dict | None) -> str | None:
+    """정해진 학과를 나와야 하는 직업(의사 · 약사 …, 설정 keyword_rules.degree_required) — 들어 있으면 그 낱말.
+    '의사소통' · '제약사' 처럼 직업이 아닌 말(degree_exceptions)은 먼저 지우고 본다."""
+    text = (message or "").replace(" ", "")
+    for ex in (rules or {}).get("degree_exceptions") or []:
+        text = text.replace(ex, "")
+    # '치과의사' 가 '의사' 로, '한약사' 가 '약사' 로 잡히지 않게 긴 낱말부터
+    jobs = sorted((rules or {}).get("degree_required") or {}, key=len, reverse=True)
+    return next((w for w in jobs if w in text), None)
+
+
 def refine_keywords(keywords: list[str], rules: dict | None) -> tuple[list[str], list[dict]]:
     """검색어 정리 — (새 검색어, 화면에 보여 줄 해석 [{text, as}]).
 
@@ -180,6 +191,18 @@ def make_analyze(deps: AgentDeps, emitter_of):
         em: Emitter = emitter_of(state)
         em.node_enter(NODE, message=state["message"][:200])
         sel = state.get("selection")
+        if sel is not None and sel.get("enrolled") is not None:
+            # 학과 질문 패널의 답 — 해석할 것이 없어 LLM 을 부르지 않는다
+            job = state.get("degree_pending")
+            em.emit("user_selection", NODE, degree_job=job, enrolled=sel["enrolled"])
+            if not (sel["enrolled"] and job):
+                em.node_exit(NODE, error="DEGREE_REQUIRED")
+                return {"error": "DEGREE_REQUIRED", "intent": "chat", "degree_pending": None}
+            # 그 학과에 다니면 계획 대신 그 직업의 국가시험 일정을 보여 준다
+            c = {**(state.get("conditions") or {}), "targets": [job], "keywords": []}
+            em.node_exit(NODE, intent="fact_lookup", conditions={"targets": [job]})
+            return {"intent": "fact_lookup", "intent_reason": f"{job} 학과 재학 — 국가시험 일정 조회",
+                    "conditions": c, "missing": [], "interpretations": [], "degree_pending": None, "error": None}
         if sel is not None and state.get("conditions"):
             # 화면 선택지로 고른 보유 자격 · 같이 준비할 기본 자격 — 해석할 것이 없어 LLM 을 부르지 않는다
             c = dict(state["conditions"])
@@ -219,6 +242,16 @@ def make_analyze(deps: AgentDeps, emitter_of):
             return {"error": "LLM_ERROR", "intent": "chat"}
 
         em.llm_decision(NODE, "intent", out.intent, out.intent_reason)
+        rules = deps.relations().get("keyword_rules") or {}
+        job = degree_job(state["message"], rules)
+        if job and out.intent in ("plan_create", "plan_modify"):
+            # 학과를 나와야만 갈 수 있는 직업의 계획 요청 — 검색하지 않고 그 학과에 다니는지 먼저 묻는다.
+            # 일정 · 자격 정보만 묻는 요청(fact_lookup · qual_info)은 평소대로 답한다
+            major = rules["degree_required"][job]
+            em.emit("degree_required", NODE, word=job, major=major)
+            em.node_exit(NODE, intent=out.intent, degree_panel=job)
+            return {"intent": out.intent, "intent_reason": out.intent_reason, "missing": [], "error": None,
+                    "degree_panel": {"job": job, "major": major}, "degree_pending": job}
         for it in out.interpretations:
             em.llm_decision(NODE, "interpretation", {"text": it.text, "as": it.as_value}, "상대 표현을 날짜 · 값으로 해석")
 

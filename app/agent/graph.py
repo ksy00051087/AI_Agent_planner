@@ -26,12 +26,12 @@ PER_TURN_RESET = {
     "missing": [], "warnings": [], "interpretations": [], "steps": [], "tool_results": {}, "failures": [],
     "candidates": [], "arrangement": None, "documents": [], "busy_dates": [], "route_meta": {}, "lookup": None, "books": {}, "replan_count": 0, "replan_log": [],
     "needs_replan": None, "ignore_deadline": False, "fatal": None, "error": None, "batch_end": 0,
-    "held_panel": None, "selection": None, "screen": None,
+    "held_panel": None, "selection": None, "screen": None, "degree_panel": None,
 }
 
 
 def _after_analyze(s: PlannerState) -> str:
-    if s.get("error") or s.get("missing") or s.get("intent") not in (*PLAN_INTENTS, "fact_lookup", "qual_info"):
+    if s.get("error") or s.get("missing") or s.get("degree_panel") or s.get("intent") not in (*PLAN_INTENTS, "fact_lookup", "qual_info"):
         return "respond"
     return "plan"
 
@@ -147,6 +147,7 @@ class PlannerAgent:
                 "error": state.get("error"), "fatal": state.get("fatal"),
                 "relations": state.get("route_meta") or {},
                 "held_panel": state.get("held_panel"),
+                "degree_panel": state.get("degree_panel"),
                 "screen": state.get("screen"),
                 "held": (state.get("conditions") or {}).get("held") or [],
                 "include": (state.get("conditions") or {}).get("include") or [],

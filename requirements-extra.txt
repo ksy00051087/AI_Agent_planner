@@ -1,0 +1,5 @@
+# 심화 기능용 (필수 기능만 할 때는 설치하지 않아도 된다)
+google-api-python-client==2.201.0
+google-auth-oauthlib==1.5.0
+google-auth-httplib2==0.4.3
+chromadb==1.5.9

@@ -1,0 +1,332 @@
+{
+  "_readme": "표 형태 출처를 코드 수정 없이 붙인다. 항목 설명은 app/tools/sources/table.py 맨 위. 키가 없거나 파일이 없으면 그 출처만 건너뛴다. 연결하지 않은 것과 이유는 docs/research/data_sources.md.",
+  "sources": [
+    {
+      "id": "kdata",
+      "label": "한국데이터산업진흥원 데이터 자격검정 시험 정보 (공공데이터포털 자동변환 API, 2026-01-06 갱신본)",
+      "organization": "한국데이터산업진흥원",
+      "source_url": "https://www.data.go.kr/data/15062838/fileData.do",
+      "license": "이용허락범위 제한 없음",
+      "kind": "odcloud",
+      "endpoint": "https://api.odcloud.kr/api/15062838/v1/uddi:203e0beb-5aa5-448d-a167-c6e3f0cf2f4d",
+      "key_env": "DATA_GO_KR_KEY",
+      "field": "정보통신",
+      "qual_type": "국가공인 민간자격 · 국가기술자격(빅데이터분석기사)",
+      "row_filter": {
+        "시험구분": [
+          "일반검정"
+        ]
+      },
+      "columns": {
+        "qual_name": "시험명",
+        "round": "회차",
+        "stage": "시험유형",
+        "exam_time": "시험시작시간",
+        "written_reg_start": "접수시작일",
+        "written_reg_end": "접수마감일",
+        "written_exam_start": "시험일",
+        "written_pass": "합격자발표일"
+      },
+      "name_map": {
+        "SQLD(국가공인 SQL 개발자)": "SQL 개발자(SQLD)",
+        "SQLP(국가공인 SQL 전문가)": "SQL 전문가(SQLP)",
+        "ADsP(국가공인 데이터분석 준전문가)": "데이터분석 준전문가(ADsP)",
+        "ADP(국가공인 데이터분석 전문가)": "데이터분석 전문가(ADP)",
+        "데이터분석 전문가(ADP)-필기": "데이터분석 전문가(ADP)",
+        "데이터 분석 전문가(ADP)-실기": "데이터분석 전문가(ADP)",
+        "DAsP(데이터아키텍처 준전문가)": "데이터아키텍처 준전문가(DAsP)",
+        "DAP(국가공인 데이터아키텍처 전문가)": "데이터아키텍처 전문가(DAP)",
+        "국가기술 빅데이터분석기사": "빅데이터분석기사",
+        "빅데이터분석기사-필기": "빅데이터분석기사",
+        "빅데이터분석기사-실기": "빅데이터분석기사"
+      },
+      "sub_field": "데이터",
+      "fallback_path": "data/raw/15062838.csv"
+    },
+    {
+      "kind": "odcloud",
+      "endpoint": "https://api.odcloud.kr/api/15155201/v1/uddi:cc0a47e6-0810-4cca-b10f-e38c9e98e3a0",
+      "key_env": "DATA_GO_KR_KEY",
+      "fallback_path": "data/raw/15155201.csv",
+      "source_url": "https://www.data.go.kr/data/15155201/fileData.do",
+      "license": "공공데이터포털 이용허락범위 (상세 페이지 참고)",
+      "id": "history",
+      "label": "국사편찬위원회 한국사능력검정시험 일정",
+      "organization": "국사편찬위원회",
+      "field": "교육.자연.과학.사회과학",
+      "sub_field": "역사",
+      "qual_type": "국가공인 민간자격",
+      "qual_name_fixed": "한국사능력검정시험",
+      "columns": {
+        "round": "회차",
+        "written_reg_start": "원서접수일시(from)",
+        "written_reg_end": "원서접수일시(to)",
+        "written_exam_start": "시험일시",
+        "written_pass": "합격자발표"
+      }
+    },
+    {
+      "kind": "odcloud",
+      "endpoint": "https://api.odcloud.kr/api/15061941/v1/uddi:e98378a4-9c24-417e-9805-c81133dc3678",
+      "key_env": "DATA_GO_KR_KEY",
+      "fallback_path": "data/raw/15061941.csv",
+      "source_url": "https://www.data.go.kr/data/15061941/fileData.do",
+      "license": "공공데이터포털 이용허락범위 (상세 페이지 참고)",
+      "id": "kuksiwon",
+      "label": "한국보건의료인국가시험원 시험일정 정보",
+      "organization": "한국보건의료인국가시험원",
+      "field": "보건.의료",
+      "qual_type": "국가면허 · 국가자격",
+      "columns": {
+        "qual_name": "직종",
+        "round": "회차",
+        "written_exam_start": "시험일",
+        "written_pass": "합격자발표예정일"
+      },
+      "ranges": {
+        "온라인접수기간": [
+          "written_reg_start",
+          "written_reg_end"
+        ]
+      },
+      "name_stage_pattern": "^(?P<name>.+?)\\s*\\((?P<stage>실기|필기)\\)$"
+    },
+    {
+      "kind": "odcloud",
+      "endpoint": "https://api.odcloud.kr/api/15162720/v1/uddi:6b059439-ffc2-4972-a347-822a81c06509",
+      "key_env": "DATA_GO_KR_KEY",
+      "fallback_path": "data/raw/15162720.csv",
+      "source_url": "https://www.data.go.kr/data/15162720/fileData.do",
+      "license": "공공데이터포털 이용허락범위 (상세 페이지 참고)",
+      "id": "game",
+      "label": "한국콘텐츠진흥원 게임국가기술자격검정 시험일정",
+      "organization": "한국콘텐츠진흥원",
+      "field": "문화.예술.디자인.방송",
+      "sub_field": "게임",
+      "qual_type": "국가기술자격",
+      "row_filter": {
+        "검정구분": [
+          "정기검정"
+        ]
+      },
+      "columns": {
+        "qual_name": "검정종목",
+        "round": "검정횟수",
+        "stage": "시험종류구분",
+        "written_reg_start": "접수기간시작일",
+        "written_reg_end": "접수기간종료일",
+        "written_exam_start": "시험일자",
+        "written_pass": "합격발표시작일"
+      }
+    },
+    {
+      "kind": "odcloud",
+      "endpoint": "https://api.odcloud.kr/api/15117003/v1/uddi:fb6de4a9-9a1d-4402-ae7f-b63f885ce4d1",
+      "key_env": "DATA_GO_KR_KEY",
+      "fallback_path": "data/raw/15117003.csv",
+      "source_url": "https://www.data.go.kr/data/15117003/fileData.do",
+      "license": "공공데이터포털 이용허락범위 (상세 페이지 참고)",
+      "id": "seafarer_cbt",
+      "label": "한국해양수산연수원 해기사 필기시험(상시 CBT) 일정",
+      "organization": "한국해양수산연수원",
+      "field": "운전.운송",
+      "sub_field": "해양 · 선박",
+      "qual_type": "국가자격(면허)",
+      "qual_name_fixed": "해기사 필기시험(상시 CBT)",
+      "stage_fixed": "필기",
+      "columns": {
+        "round": "회차",
+        "written_reg_start": "접수 시작 일시",
+        "written_reg_end": "접수 마감 일시",
+        "written_exam_start": "시험일자",
+        "written_pass": "합격자 발표일시"
+      }
+    },
+    {
+      "kind": "odcloud",
+      "endpoint": "https://api.odcloud.kr/api/15115098/v1/uddi:f136debd-d299-42bc-941d-b05261d48a01",
+      "key_env": "DATA_GO_KR_KEY",
+      "fallback_path": "data/raw/15115098.csv",
+      "source_url": "https://www.data.go.kr/data/15115098/fileData.do",
+      "license": "공공데이터포털 이용허락범위 (상세 페이지 참고)",
+      "id": "seafarer",
+      "label": "한국해양수산연수원 해기사 필기시험(정기) 일정",
+      "organization": "한국해양수산연수원",
+      "field": "운전.운송",
+      "sub_field": "해양 · 선박",
+      "qual_type": "국가자격(면허)",
+      "qual_name_fixed": "해기사 필기시험(정기)",
+      "stage_fixed": "필기",
+      "columns": {
+        "round": "회차",
+        "written_reg_start": "접수 시작 일시",
+        "written_reg_end": "접수 마감 일시",
+        "written_exam_start": "시험일자",
+        "written_pass": "합격 발표일시"
+      }
+    },
+    {
+      "kind": "odcloud",
+      "endpoint": "https://api.odcloud.kr/api/15118963/v1/uddi:476837a6-2f36-4fcd-8772-afa441f9de1e",
+      "key_env": "DATA_GO_KR_KEY",
+      "fallback_path": "data/raw/15118963.csv",
+      "source_url": "https://www.data.go.kr/data/15118963/fileData.do",
+      "license": "공공데이터포털 이용허락범위 (상세 페이지 참고)",
+      "id": "ship_cook",
+      "label": "한국해양수산연수원 선박조리사 시험 일정",
+      "organization": "한국해양수산연수원",
+      "field": "음식서비스",
+      "sub_field": "선박 조리",
+      "qual_type": "국가자격",
+      "qual_name_fixed": "선박조리사",
+      "columns": {
+        "round": "회차",
+        "written_reg_start": "접수일",
+        "written_reg_end": "접수일",
+        "written_exam_start": "시험일",
+        "written_pass": "합격자발표일"
+      }
+    },
+    {
+      "kind": "odcloud",
+      "endpoint": "https://api.odcloud.kr/api/15115100/v1/uddi:f4f8acea-b492-438d-8786-a005b507b89b",
+      "key_env": "DATA_GO_KR_KEY",
+      "fallback_path": "data/raw/15115100.csv",
+      "source_url": "https://www.data.go.kr/data/15115100/fileData.do",
+      "license": "공공데이터포털 이용허락범위 (상세 페이지 참고)",
+      "id": "ship_medical",
+      "label": "한국해양수산연수원 의료관리자 시험(정기) 일정",
+      "organization": "한국해양수산연수원",
+      "field": "보건.의료",
+      "sub_field": "해양 · 선박",
+      "qual_type": "국가자격",
+      "qual_name_fixed": "의료관리자(선박)",
+      "columns": {
+        "round": "회차",
+        "stage": "구분",
+        "written_reg_start": "접수 시작 일시",
+        "written_reg_end": "접수 마감 일시",
+        "written_exam_start": "시험 일자",
+        "written_pass": "합격 발표 일자"
+      }
+    },
+    {
+      "kind": "odcloud",
+      "endpoint": "https://api.odcloud.kr/api/15118964/v1/uddi:ceaffc02-a618-449a-8413-c9aff10e2105",
+      "key_env": "DATA_GO_KR_KEY",
+      "fallback_path": "data/raw/15118964.csv",
+      "source_url": "https://www.data.go.kr/data/15118964/fileData.do",
+      "license": "공공데이터포털 이용허락범위 (상세 페이지 참고)",
+      "id": "auctioneer",
+      "label": "한국해양수산연수원 산지경매사 시험 일정",
+      "organization": "한국해양수산연수원",
+      "field": "영업.판매",
+      "sub_field": "수산 유통",
+      "qual_type": "국가자격",
+      "qual_name_fixed": "산지경매사",
+      "columns": {
+        "round": "회차",
+        "stage": "구분",
+        "written_reg_start": "접수기간(시작)",
+        "written_reg_end": "접수기간(마감)",
+        "written_exam_start": "시험일",
+        "written_pass": "합격자발표일"
+      }
+    },
+    {
+      "kind": "odcloud",
+      "endpoint": "https://api.odcloud.kr/api/15150011/v1/uddi:28efd9c9-5206-4b67-a8fa-96abe833ab32",
+      "key_env": "DATA_GO_KR_KEY",
+      "fallback_path": "data/raw/15150011.csv",
+      "source_url": "https://www.data.go.kr/data/15150011/fileData.do",
+      "license": "공공데이터포털 이용허락범위 (상세 페이지 참고)",
+      "id": "fish_disease",
+      "label": "한국해양수산연수원 수산질병관리사 시험일정",
+      "organization": "한국해양수산연수원",
+      "field": "농림어업",
+      "sub_field": "수산",
+      "qual_type": "국가면허",
+      "qual_name_fixed": "수산질병관리사",
+      "columns": {
+        "round": "구분",
+        "written_reg_start": "원서접수일",
+        "written_reg_end": "원서접수종료일",
+        "written_exam_start": "시험일자",
+        "written_pass": "발표일자"
+      }
+    },
+    {
+      "kind": "odcloud",
+      "endpoint": "https://api.odcloud.kr/api/15119099/v1/uddi:db5ca72c-93e4-41a8-86bd-e0db79614e37",
+      "key_env": "DATA_GO_KR_KEY",
+      "fallback_path": "data/raw/15119099.csv",
+      "source_url": "https://www.data.go.kr/data/15119099/fileData.do",
+      "license": "공공데이터포털 이용허락범위 (상세 페이지 참고)",
+      "id": "forest_healing",
+      "label": "한국산림복지진흥원 산림복지전문가 시험일정",
+      "organization": "한국산림복지진흥원",
+      "field": "농림어업",
+      "sub_field": "산림복지",
+      "qual_type": "국가자격",
+      "qual_name_fixed": "산림치유지도사",
+      "columns": {
+        "exam_time": "시험시간",
+        "written_reg_start": "접수시작일자",
+        "written_reg_end": "접수종료일자",
+        "written_exam_start": "시험일자"
+      }
+    },
+    {
+      "kind": "odcloud",
+      "endpoint": "https://api.odcloud.kr/api/3033611/v1/uddi:99fb67de-ddf5-4a3e-8cfb-d3193c7156c5",
+      "key_env": "DATA_GO_KR_KEY",
+      "fallback_path": "data/raw/3033611.csv",
+      "source_url": "https://www.data.go.kr/data/3033611/fileData.do",
+      "license": "공공데이터포털 이용허락범위 (상세 페이지 참고)",
+      "id": "civil_service",
+      "label": "인사혁신처 국가공무원 시험일정",
+      "organization": "인사혁신처",
+      "field": "공무원",
+      "qual_type": "공무원 채용시험",
+      "columns": {
+        "qual_name": "시험명",
+        "stage": "시험단계구분",
+        "written_exam_start": "시험일",
+        "written_pass": "합격자발표일"
+      },
+      "ranges": {
+        "원서접수기간": [
+          "written_reg_start",
+          "written_reg_end"
+        ]
+      }
+    },
+    {
+      "id": "livestock_ai",
+      "label": "국립축산과학원 가축인공수정사 시험일정 (오픈API)",
+      "organization": "농촌진흥청 국립축산과학원",
+      "source_url": "https://www.data.go.kr/data/15103485/openapi.do",
+      "license": "공공데이터포털 이용허락범위 (상세 페이지 참고)",
+      "kind": "xml_api",
+      "endpoint": "https://apis.data.go.kr/1390906/newailicenseDate/getAitPblancDtl2",
+      "key_env": "DATA_GO_KR_KEY",
+      "year_param": "srchTestYear",
+      "field": "농림어업",
+      "sub_field": "축산",
+      "qual_type": "국가면허",
+      "qual_name_fixed": "가축인공수정사",
+      "columns": {
+        "round": "testTmrd",
+        "written_reg_start": "rceptBegin",
+        "written_reg_end": "rceptEnd",
+        "written_exam_start": "testBegin",
+        "written_pass": "psexamPblancBegin",
+        "practical_reg_start": "prcttqRceptBegin",
+        "practical_reg_end": "prcttqRceptEnd",
+        "practical_exam_start": "prcttqTestBegin",
+        "practical_pass": "prcttqPsexamPblancBegin"
+      },
+      "stage_fixed": "필기 → 실기"
+    }
+  ]
+}

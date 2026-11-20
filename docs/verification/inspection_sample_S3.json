@@ -1,0 +1,26 @@
+[
+ {
+  "run_id": "cb9bcd89580b",
+  "session_id": "e4328da1d437",
+  "verdict": "이상",
+  "warnings": [
+   {
+    "type": "EXCESSIVE_REPLAN",
+    "detail": "재계획 2회로 상한(2)에 닿음",
+    "evidence": [
+     26,
+     33
+    ]
+   }
+  ],
+  "reason": null,
+  "counts": {
+   "tool_calls": 13,
+   "replans": 2,
+   "events": 52
+  },
+  "diagnosis": "재계획이 2회로 상한에 도달한 것은 계획 수립 시 기한과 준비 기간(150주) 간 불일치를 충분히 고려하지 않은 데서 비롯됐다. 즉, 계획 단계에서 현실적인 기한 검증과 조정이 미흡하여 재계획이 반복되었다. 따라서 메인 Agent의 계획 수립 로직에서 기한과 준비 기간의 타당성을 사전에 엄밀히 평가하고 조정하는 부분을 개선해야 한다.",
+  "diagnosis_status": "ok",
+  "created_at": "2026-11-18T17:21:54"
+ }
+]

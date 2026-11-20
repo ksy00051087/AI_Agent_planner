@@ -1,0 +1,468 @@
+[
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 1,
+  "ts": "2026-11-18T16:53:53.598",
+  "type": "node_enter",
+  "node": "analyze",
+  "summary": {
+   "message": "전기 쪽으로 취업하고 싶어. 자격증 계획 짜줘"
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 2,
+  "ts": "2026-11-18T16:53:58.661",
+  "type": "llm_decision",
+  "node": "analyze",
+  "kind": "intent",
+  "decision": "plan_create",
+  "reason": "사용자가 전기 분야 자격증 취득 계획을 요청함"
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 3,
+  "ts": "2026-11-18T16:53:58.667",
+  "type": "node_exit",
+  "node": "analyze",
+  "summary": {
+   "intent": "plan_create",
+   "conditions": {
+    "field": "전기"
+   },
+   "missing": [],
+   "warnings": [
+    "검색어로 쓸 수 없는 낱말 ['취업'] 를 뺌"
+   ]
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 4,
+  "ts": "2026-11-18T16:53:58.667",
+  "type": "node_enter",
+  "node": "plan",
+  "summary": {
+   "intent": "plan_create"
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 5,
+  "ts": "2026-11-18T16:53:58.667",
+  "type": "node_exit",
+  "node": "plan",
+  "summary": {
+   "steps": [
+    {
+     "tool": "search_qualifications",
+     "why": "분야 '전기'"
+    },
+    {
+     "tool": "get_exam_schedule",
+     "why": "접수 · 시험일 · 응시료 · 합격률 확인"
+    },
+    {
+     "tool": "search_books",
+     "why": "교재"
+    }
+   ]
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 6,
+  "ts": "2026-11-18T16:53:58.667",
+  "type": "node_enter",
+  "node": "execute",
+  "summary": {
+   "batch_end": 6
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 7,
+  "ts": "2026-11-18T16:53:58.681",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "search_qualifications",
+  "args": {
+   "field": "전기",
+   "limit": 100
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 8,
+  "ts": "2026-11-18T16:54:00.841",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "search_qualifications",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 2151,
+  "count": 38
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 9,
+  "ts": "2026-11-18T16:54:00.841",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "7780"
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 10,
+  "ts": "2026-11-18T16:54:00.841",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "2140"
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 11,
+  "ts": "2026-11-18T16:54:00.841",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "1150"
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 12,
+  "ts": "2026-11-18T16:54:00.841",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "2150"
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 13,
+  "ts": "2026-11-18T16:54:00.854",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "1160"
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 14,
+  "ts": "2026-11-18T16:54:00.854",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "7785"
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 15,
+  "ts": "2026-11-18T16:54:04.350",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 3495,
+  "count": 8
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 16,
+  "ts": "2026-11-18T16:54:04.401",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 440,
+  "count": 6
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 17,
+  "ts": "2026-11-18T16:54:04.455",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 440,
+  "count": 6
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 18,
+  "ts": "2026-11-18T16:54:04.508",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 357,
+  "count": 6
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 19,
+  "ts": "2026-11-18T16:54:04.548",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 439,
+  "count": 6
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 20,
+  "ts": "2026-11-18T16:54:04.641",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 3778,
+  "count": 8
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 21,
+  "ts": "2026-11-18T16:54:04.669",
+  "type": "node_exit",
+  "node": "execute",
+  "summary": {
+   "candidates": 29,
+   "scheduled": 6,
+   "failures": 0
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 22,
+  "ts": "2026-11-18T16:54:04.676",
+  "type": "node_enter",
+  "node": "judge",
+  "summary": null
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 23,
+  "ts": "2026-11-18T16:54:04.681",
+  "type": "node_exit",
+  "node": "judge",
+  "summary": {
+   "placed": [
+    "전기기능사",
+    "전기산업기사",
+    "전기기사",
+    "전기공사산업기사"
+   ],
+   "excluded": [],
+   "needs_replan": null
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 24,
+  "ts": "2026-11-18T16:54:04.691",
+  "type": "node_enter",
+  "node": "enrich",
+  "summary": null
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 25,
+  "ts": "2026-11-18T16:54:04.694",
+  "type": "tool_call",
+  "node": "enrich",
+  "tool": "search_books",
+  "args": {
+   "qualification_name": "전기기능사",
+   "exam_type": "필기",
+   "limit": 3
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 26,
+  "ts": "2026-11-18T16:54:04.887",
+  "type": "tool_result",
+  "node": "enrich",
+  "tool": "search_books",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 190,
+  "count": 3
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 27,
+  "ts": "2026-11-18T16:54:04.892",
+  "type": "tool_call",
+  "node": "enrich",
+  "tool": "search_books",
+  "args": {
+   "qualification_name": "전기산업기사",
+   "exam_type": "필기",
+   "limit": 3
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 28,
+  "ts": "2026-11-18T16:54:05.095",
+  "type": "tool_result",
+  "node": "enrich",
+  "tool": "search_books",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 199,
+  "count": 3
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 29,
+  "ts": "2026-11-18T16:54:05.095",
+  "type": "tool_call",
+  "node": "enrich",
+  "tool": "search_books",
+  "args": {
+   "qualification_name": "전기기사",
+   "exam_type": "필기",
+   "limit": 3
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 30,
+  "ts": "2026-11-18T16:54:05.299",
+  "type": "tool_result",
+  "node": "enrich",
+  "tool": "search_books",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 197,
+  "count": 3
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 31,
+  "ts": "2026-11-18T16:54:05.302",
+  "type": "tool_call",
+  "node": "enrich",
+  "tool": "search_books",
+  "args": {
+   "qualification_name": "전기공사산업기사",
+   "exam_type": "필기",
+   "limit": 3
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 32,
+  "ts": "2026-11-18T16:54:05.498",
+  "type": "tool_result",
+  "node": "enrich",
+  "tool": "search_books",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 193,
+  "count": 3
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 33,
+  "ts": "2026-11-18T16:54:05.502",
+  "type": "node_exit",
+  "node": "enrich",
+  "summary": {
+   "books": {
+    "7780": 3,
+    "2140": 3,
+    "1150": 3,
+    "2150": 3
+   }
+  }
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 34,
+  "ts": "2026-11-18T16:54:05.506",
+  "type": "node_enter",
+  "node": "respond",
+  "summary": null
+ },
+ {
+  "session_id": "ed9f165865ca",
+  "run_id": "005d7722e2b1",
+  "seq": 35,
+  "ts": "2026-11-18T16:54:05.509",
+  "type": "node_exit",
+  "node": "respond",
+  "summary": {
+   "length": 3914
+  }
+ }
+]

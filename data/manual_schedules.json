@@ -1,0 +1,16 @@
+{
+  "_readme": "큐넷에 없는 자격(민간·협회 시행)을 공식 공고문에서 옮겨 적는다. source_url 과 checked_at 이 없는 항목은 Tool 이 무시한다. 날짜는 YYYYMMDD 문자열, 모르면 null (추측해서 채우지 않는다).",
+  "_example": {
+    "name": "자격명",
+    "organization": "시행기관",
+    "field": "직무분야(예: 금융)",
+    "grade": "민간",
+    "source_url": "https://공고문 주소",
+    "checked_at": "2026-11-18",
+    "fee": {"필기": 0},
+    "rounds": [
+      {"name": "2027년 제1회", "dates": {"written_reg_start": "YYYYMMDD", "written_reg_end": "YYYYMMDD", "written_exam_start": "YYYYMMDD", "written_pass": "YYYYMMDD"}}
+    ]
+  },
+  "items": []
+}

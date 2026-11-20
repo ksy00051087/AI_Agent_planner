@@ -1,0 +1,30 @@
+# 비밀 — 절대 커밋하지 않는다 (NF3001)
+.env
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+.pytest_cache/
+
+# 로컬 데이터
+*.sqlite3
+*.db
+data/*.db
+data/*.sqlite3
+
+# 에디터
+.vscode/
+.idea/
+
+# 공공데이터 원본 내려받기 (scripts/download_datasets.py)
+data/raw/
+
+# RAG 색인 (scripts/build_index.py 로 다시 만든다)
+data/rag/
+
+# Google OAuth (F3023) — 클라이언트 비밀 · 토큰. 절대 커밋하지 않는다
+data/google/
+credentials.json
+token.json

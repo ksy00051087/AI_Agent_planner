@@ -1,0 +1,379 @@
+[
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 1,
+  "ts": "2026-11-18T16:54:07.555",
+  "type": "node_enter",
+  "node": "analyze",
+  "summary": {
+   "message": "전기기사 3월까지 따고 싶어"
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 2,
+  "ts": "2026-11-18T16:54:09.487",
+  "type": "llm_decision",
+  "node": "analyze",
+  "kind": "intent",
+  "decision": "plan_create",
+  "reason": "사용자가 전기기사 자격증을 3월까지 따고 싶다고 명확히 계획을 요청함"
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 3,
+  "ts": "2026-11-18T16:54:09.495",
+  "type": "llm_decision",
+  "node": "analyze",
+  "kind": "interpretation",
+  "decision": {
+   "text": "3월까지",
+   "as": "2027-03-31"
+  },
+  "reason": "상대 표현을 날짜 · 값으로 해석"
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 4,
+  "ts": "2026-11-18T16:54:09.495",
+  "type": "node_exit",
+  "node": "analyze",
+  "summary": {
+   "intent": "plan_create",
+   "conditions": {
+    "deadline": "2027-03-31",
+    "field": "전기",
+    "targets": [
+     "전기기사"
+    ]
+   },
+   "missing": [],
+   "warnings": null
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 5,
+  "ts": "2026-11-18T16:54:09.495",
+  "type": "node_enter",
+  "node": "plan",
+  "summary": {
+   "intent": "plan_create"
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 6,
+  "ts": "2026-11-18T16:54:09.495",
+  "type": "node_exit",
+  "node": "plan",
+  "summary": {
+   "steps": [
+    {
+     "tool": "search_qualifications",
+     "why": "지정한 자격 '전기기사'"
+    },
+    {
+     "tool": "search_qualifications",
+     "why": "분야 '전기'"
+    },
+    {
+     "tool": "get_exam_schedule",
+     "why": "접수 · 시험일 · 응시료 · 합격률 확인"
+    },
+    {
+     "tool": "search_books",
+     "why": "교재"
+    }
+   ]
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 7,
+  "ts": "2026-11-18T16:54:09.508",
+  "type": "node_enter",
+  "node": "execute",
+  "summary": {
+   "batch_end": 6
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 8,
+  "ts": "2026-11-18T16:54:09.512",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "search_qualifications",
+  "args": {
+   "keyword": "전기기사",
+   "limit": 20
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 9,
+  "ts": "2026-11-18T16:54:09.517",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "search_qualifications",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 2,
+  "count": 1
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 10,
+  "ts": "2026-11-18T16:54:09.517",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "search_qualifications",
+  "args": {
+   "field": "전기",
+   "limit": 100
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 11,
+  "ts": "2026-11-18T16:54:09.524",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "search_qualifications",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 3,
+  "count": 38
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 12,
+  "ts": "2026-11-18T16:54:09.524",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "1150"
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 13,
+  "ts": "2026-11-18T16:54:09.524",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 0,
+  "count": 6
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 14,
+  "ts": "2026-11-18T16:54:09.534",
+  "type": "node_exit",
+  "node": "execute",
+  "summary": {
+   "candidates": 1,
+   "scheduled": 1,
+   "failures": 0
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 15,
+  "ts": "2026-11-18T16:54:09.536",
+  "type": "node_enter",
+  "node": "judge",
+  "summary": null
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 16,
+  "ts": "2026-11-18T16:54:09.536",
+  "type": "node_exit",
+  "node": "judge",
+  "summary": {
+   "placed": [],
+   "excluded": [
+    [
+     "전기기사",
+     "DEADLINE_EXCEEDED"
+    ]
+   ],
+   "needs_replan": "RELAX_DEADLINE"
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 17,
+  "ts": "2026-11-18T16:54:09.536",
+  "type": "node_enter",
+  "node": "replan",
+  "summary": {
+   "count": 1
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 18,
+  "ts": "2026-11-18T16:54:09.536",
+  "type": "replan",
+  "node": "replan",
+  "count": 1,
+  "reason_code": "DEADLINE_INFEASIBLE",
+  "change": "기한 2027-03-31 안에는 불가 — 기한을 넘기는 가장 빠른 대안을 계산"
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 19,
+  "ts": "2026-11-18T16:54:09.547",
+  "type": "node_exit",
+  "node": "replan",
+  "summary": {
+   "change": "기한 2027-03-31 안에는 불가 — 기한을 넘기는 가장 빠른 대안을 계산"
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 20,
+  "ts": "2026-11-18T16:54:09.547",
+  "type": "node_enter",
+  "node": "execute",
+  "summary": {
+   "batch_end": 6
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 21,
+  "ts": "2026-11-18T16:54:09.547",
+  "type": "node_exit",
+  "node": "execute",
+  "summary": {
+   "candidates": 1,
+   "scheduled": 1,
+   "failures": 0
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 22,
+  "ts": "2026-11-18T16:54:09.547",
+  "type": "node_enter",
+  "node": "judge",
+  "summary": null
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 23,
+  "ts": "2026-11-18T16:54:09.563",
+  "type": "node_exit",
+  "node": "judge",
+  "summary": {
+   "placed": [
+    "전기기사"
+   ],
+   "excluded": [],
+   "needs_replan": null
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 24,
+  "ts": "2026-11-18T16:54:09.563",
+  "type": "node_enter",
+  "node": "enrich",
+  "summary": null
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 25,
+  "ts": "2026-11-18T16:54:09.563",
+  "type": "tool_call",
+  "node": "enrich",
+  "tool": "search_books",
+  "args": {
+   "qualification_name": "전기기사",
+   "exam_type": "필기",
+   "limit": 3
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 26,
+  "ts": "2026-11-18T16:54:09.748",
+  "type": "tool_result",
+  "node": "enrich",
+  "tool": "search_books",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 180,
+  "count": 3
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 27,
+  "ts": "2026-11-18T16:54:09.748",
+  "type": "node_exit",
+  "node": "enrich",
+  "summary": {
+   "books": {
+    "1150": 3
+   }
+  }
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 28,
+  "ts": "2026-11-18T16:54:09.748",
+  "type": "node_enter",
+  "node": "respond",
+  "summary": null
+ },
+ {
+  "session_id": "0382d5a90f23",
+  "run_id": "21c99c172e6d",
+  "seq": 29,
+  "ts": "2026-11-18T16:54:09.766",
+  "type": "node_exit",
+  "node": "respond",
+  "summary": {
+   "length": 1512
+  }
+ }
+]

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE</resultMsg>
+</header>
+
+<body>
+<items>
+
+	<item>
+			<examYr>2007</examYr>
+			<examNot>1</examNot>
+			<examKind>5</examKind>
+			<examNm><![CDATA[1st EPS-TOPIK in Republic of Uzbekistan]]></examNm>
+			<receiptStartDate>20070714</receiptStartDate>
+			<receiptEndDate>20070724</receiptEndDate>
+			<examStDate>20070729</examStDate>
+			<examEndDate>20070729</examEndDate>
+			<passAnnounceDate>20070807</passAnnounceDate>
+		</item>
+
+	<item>
+			<examYr>2007</examYr>
+			<examNot>2</examNot>
+			<examKind>5</examKind>
+			<examNm><![CDATA[2nd EPS-TOPIK in Republic of Uzbekistan]]></examNm>
+			<receiptStartDate>20070929</receiptStartDate>
+			<receiptEndDate>20071009</receiptEndDate>
+			<examStDate>20071014</examStDate>
+			<examEndDate>20071014</examEndDate>
+			<passAnnounceDate>20071023</passAnnounceDate>
+		</item>
+
+	<item>
+			<examYr>2007</examYr>
+			<examNot>3</examNot>
+			<examKind>5</examKind>
+			<examNm><![CDATA[1st EPS-TOPIK in Kingdom of Cambodia]]></examNm>
+			<receiptStartDate>20070518</receiptStartDate>
+			<receiptEndDate>20070528</receiptEndDate>
+			<examStDate>20070602</examStDate>
+			<examEndDate>20070602</examEndDate>
+			<passAnnounceDate>20070611</passAnnounceDate>
+		</item>
+
+	</items>
+
+<numOfRows>3</numOfRows>
+<pageNo>429</pageNo>
+<totalCount>1287</totalCount>
+
+</body>
+</response>

@@ -1,0 +1,753 @@
+[
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 1,
+  "ts": "2026-11-18T17:21:49.192",
+  "type": "node_enter",
+  "node": "analyze",
+  "summary": {
+   "message": "전기 쪽 자격증 내년 2월까지, 자격마다 150주씩 공부할래"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 2,
+  "ts": "2026-11-18T17:21:50.959",
+  "type": "llm_decision",
+  "node": "analyze",
+  "kind": "intent",
+  "decision": "plan_create",
+  "reason": "사용자가 전기 분야 자격증을 내년 2월까지 취득하기 위한 계획을 요청했고, 자격마다 150주씩 공부하겠다고 명시함"
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 3,
+  "ts": "2026-11-18T17:21:50.964",
+  "type": "llm_decision",
+  "node": "analyze",
+  "kind": "interpretation",
+  "decision": {
+   "text": "내년 2월까지",
+   "as": "2027-02-28"
+  },
+  "reason": "상대 표현을 날짜 · 값으로 해석"
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 4,
+  "ts": "2026-11-18T17:21:50.967",
+  "type": "node_exit",
+  "node": "analyze",
+  "summary": {
+   "intent": "plan_create",
+   "conditions": {
+    "deadline": "2027-02-28",
+    "field": "전기",
+    "prep_weeks": 150
+   },
+   "missing": [],
+   "warnings": null
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 5,
+  "ts": "2026-11-18T17:21:50.970",
+  "type": "node_enter",
+  "node": "plan",
+  "summary": {
+   "intent": "plan_create"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 6,
+  "ts": "2026-11-18T17:21:50.973",
+  "type": "node_exit",
+  "node": "plan",
+  "summary": {
+   "steps": [
+    {
+     "tool": "search_qualifications",
+     "why": "분야 '전기'"
+    },
+    {
+     "tool": "get_exam_schedule",
+     "why": "접수 · 시험일 · 응시료 · 합격률 확인"
+    },
+    {
+     "tool": "search_books",
+     "why": "교재"
+    }
+   ]
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 7,
+  "ts": "2026-11-18T17:21:50.976",
+  "type": "node_enter",
+  "node": "execute",
+  "summary": {
+   "batch_end": 6
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 8,
+  "ts": "2026-11-18T17:21:50.979",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "search_qualifications",
+  "args": {
+   "field": "전기",
+   "limit": 100
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 9,
+  "ts": "2026-11-18T17:21:50.984",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "search_qualifications",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 3,
+  "count": 38
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 10,
+  "ts": "2026-11-18T17:21:50.984",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "7780"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 11,
+  "ts": "2026-11-18T17:21:50.984",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "2140"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 12,
+  "ts": "2026-11-18T17:21:50.991",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "1150"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 13,
+  "ts": "2026-11-18T17:21:50.991",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "2150"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 14,
+  "ts": "2026-11-18T17:21:50.991",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "1160"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 15,
+  "ts": "2026-11-18T17:21:50.991",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "7785"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 16,
+  "ts": "2026-11-18T17:21:50.991",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 0,
+  "count": 8
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 17,
+  "ts": "2026-11-18T17:21:51.007",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 1,
+  "count": 6
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 18,
+  "ts": "2026-11-18T17:21:51.007",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 1,
+  "count": 6
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 19,
+  "ts": "2026-11-18T17:21:51.007",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 1,
+  "count": 6
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 20,
+  "ts": "2026-11-18T17:21:51.007",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 1,
+  "count": 6
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 21,
+  "ts": "2026-11-18T17:21:51.007",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 0,
+  "count": 8
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 22,
+  "ts": "2026-11-18T17:21:51.007",
+  "type": "node_exit",
+  "node": "execute",
+  "summary": {
+   "candidates": 29,
+   "scheduled": 6,
+   "failures": 0
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 23,
+  "ts": "2026-11-18T17:21:51.025",
+  "type": "node_enter",
+  "node": "judge",
+  "summary": null
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 24,
+  "ts": "2026-11-18T17:21:51.025",
+  "type": "node_exit",
+  "node": "judge",
+  "summary": {
+   "placed": [],
+   "excluded": [
+    [
+     "전기기능사",
+     "DEADLINE_EXCEEDED"
+    ],
+    [
+     "전기산업기사",
+     "PREREQ_NOT_PLACED"
+    ],
+    [
+     "전기기사",
+     "PREREQ_NOT_PLACED"
+    ],
+    [
+     "전기공사산업기사",
+     "DEADLINE_EXCEEDED"
+    ],
+    [
+     "전기공사기사",
+     "PREREQ_NOT_PLACED"
+    ],
+    [
+     "3D프린터운용기능사",
+     "DEADLINE_EXCEEDED"
+    ]
+   ],
+   "needs_replan": "RELAX_DEADLINE"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 25,
+  "ts": "2026-11-18T17:21:51.025",
+  "type": "node_enter",
+  "node": "replan",
+  "summary": {
+   "count": 1
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 26,
+  "ts": "2026-11-18T17:21:51.037",
+  "type": "replan",
+  "node": "replan",
+  "count": 1,
+  "reason_code": "DEADLINE_INFEASIBLE",
+  "change": "기한 2027-02-28 안에는 불가 — 기한을 넘기는 가장 빠른 대안을 계산"
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 27,
+  "ts": "2026-11-18T17:21:51.039",
+  "type": "node_exit",
+  "node": "replan",
+  "summary": {
+   "change": "기한 2027-02-28 안에는 불가 — 기한을 넘기는 가장 빠른 대안을 계산"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 28,
+  "ts": "2026-11-18T17:21:51.039",
+  "type": "node_enter",
+  "node": "execute",
+  "summary": {
+   "batch_end": 6
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 29,
+  "ts": "2026-11-18T17:21:51.039",
+  "type": "node_exit",
+  "node": "execute",
+  "summary": {
+   "candidates": 29,
+   "scheduled": 6,
+   "failures": 0
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 30,
+  "ts": "2026-11-18T17:21:51.039",
+  "type": "node_enter",
+  "node": "judge",
+  "summary": null
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 31,
+  "ts": "2026-11-18T17:21:51.039",
+  "type": "node_exit",
+  "node": "judge",
+  "summary": {
+   "placed": [],
+   "excluded": [
+    [
+     "전기기능사",
+     "NOT_ENOUGH_TIME"
+    ],
+    [
+     "전기산업기사",
+     "PREREQ_NOT_PLACED"
+    ],
+    [
+     "전기기사",
+     "PREREQ_NOT_PLACED"
+    ],
+    [
+     "전기공사산업기사",
+     "NOT_ENOUGH_TIME"
+    ],
+    [
+     "전기공사기사",
+     "PREREQ_NOT_PLACED"
+    ],
+    [
+     "3D프린터운용기능사",
+     "NOT_ENOUGH_TIME"
+    ]
+   ],
+   "needs_replan": "NEXT_CANDIDATES"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 32,
+  "ts": "2026-11-18T17:21:51.055",
+  "type": "node_enter",
+  "node": "replan",
+  "summary": {
+   "count": 2
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 33,
+  "ts": "2026-11-18T17:21:51.058",
+  "type": "replan",
+  "node": "replan",
+  "count": 2,
+  "reason_code": "NO_FEASIBLE_PLAN",
+  "change": "충족하는 배치가 없어 다음 후보 6개를 추가로 확인 (이미 조회한 일정은 재사용)"
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 34,
+  "ts": "2026-11-18T17:21:51.060",
+  "type": "node_exit",
+  "node": "replan",
+  "summary": {
+   "change": "충족하는 배치가 없어 다음 후보 6개를 추가로 확인 (이미 조회한 일정은 재사용)"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 35,
+  "ts": "2026-11-18T17:21:51.060",
+  "type": "node_enter",
+  "node": "execute",
+  "summary": {
+   "batch_end": 12
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 36,
+  "ts": "2026-11-18T17:21:51.060",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "6790"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 37,
+  "ts": "2026-11-18T17:21:51.060",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "2170"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 38,
+  "ts": "2026-11-18T17:21:51.060",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "1170"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 39,
+  "ts": "2026-11-18T17:21:51.060",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "6772"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 40,
+  "ts": "2026-11-18T17:21:51.076",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "6801"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 41,
+  "ts": "2026-11-18T17:21:51.076",
+  "type": "tool_call",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "args": {
+   "qual_id": "1121"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 42,
+  "ts": "2026-11-18T17:21:54.607",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 3531,
+  "count": 6
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 43,
+  "ts": "2026-11-18T17:21:54.648",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 3565,
+  "count": 6
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 44,
+  "ts": "2026-11-18T17:21:54.648",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 3105,
+  "count": 6
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 45,
+  "ts": "2026-11-18T17:21:54.648",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 1397,
+  "count": 2
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 46,
+  "ts": "2026-11-18T17:21:54.739",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 3654,
+  "count": 6
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 47,
+  "ts": "2026-11-18T17:21:54.742",
+  "type": "tool_result",
+  "node": "execute",
+  "tool": "get_exam_schedule",
+  "ok": true,
+  "code": null,
+  "message": null,
+  "duration_ms": 312,
+  "count": 2
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 48,
+  "ts": "2026-11-18T17:21:54.742",
+  "type": "node_exit",
+  "node": "execute",
+  "summary": {
+   "candidates": 29,
+   "scheduled": 12,
+   "failures": 0
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 49,
+  "ts": "2026-11-18T17:21:54.752",
+  "type": "node_enter",
+  "node": "judge",
+  "summary": null
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 50,
+  "ts": "2026-11-18T17:21:54.752",
+  "type": "node_exit",
+  "node": "judge",
+  "summary": {
+   "placed": [],
+   "excluded": [
+    [
+     "전기기능사",
+     "NOT_ENOUGH_TIME"
+    ],
+    [
+     "전기산업기사",
+     "PREREQ_NOT_PLACED"
+    ],
+    [
+     "전기기사",
+     "PREREQ_NOT_PLACED"
+    ],
+    [
+     "전기공사산업기사",
+     "NOT_ENOUGH_TIME"
+    ],
+    [
+     "전기공사기사",
+     "PREREQ_NOT_PLACED"
+    ],
+    [
+     "3D프린터운용기능사",
+     "NOT_ENOUGH_TIME"
+    ],
+    [
+     "전자기능사",
+     "NOT_ENOUGH_TIME"
+    ],
+    [
+     "전자산업기사",
+     "PREREQ_NOT_PLACED"
+    ],
+    [
+     "전자기사",
+     "PREREQ_NOT_PLACED"
+    ],
+    [
+     "철도전기신호기능사",
+     "NOT_ENOUGH_TIME"
+    ],
+    [
+     "임베디드기능사",
+     "NOT_ENOUGH_TIME"
+    ],
+    [
+     "임베디드기사",
+     "PREREQ_NOT_PLACED"
+    ]
+   ],
+   "needs_replan": "LIMIT_REACHED"
+  }
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 51,
+  "ts": "2026-11-18T17:21:54.752",
+  "type": "node_enter",
+  "node": "respond",
+  "summary": null
+ },
+ {
+  "session_id": "e4328da1d437",
+  "run_id": "cb9bcd89580b",
+  "seq": 52,
+  "ts": "2026-11-18T17:21:54.752",
+  "type": "node_exit",
+  "node": "respond",
+  "summary": {
+   "length": 1072
+  }
+ }
+]

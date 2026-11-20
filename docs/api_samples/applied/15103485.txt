@@ -1,0 +1,39 @@
+
+
+
+
+
+
+<response>
+	<header>
+		<resultCode>200</resultCode>
+		<resultMsg>OK</resultMsg>
+		
+	</header>
+	<body>
+ 		<items>
+ 			
+				<item>
+					<testYear>2026</testYear>
+					<testTmrd>1</testTmrd>
+					<rceptBegin>2026-05-15 00:00</rceptBegin>
+					<rceptEnd>2026-05-22 00:00</rceptEnd>
+					<rceptCanclBegin>2026-05-15 00:00</rceptCanclBegin>
+					<rceptCanclEnd>2026-05-26 00:00</rceptCanclEnd>
+					<apyexmOutptBegin>2026-06-26 00:00</apyexmOutptBegin>
+					<testBegin>2026-07-11 00:00</testBegin>
+					<psexamPblancBegin>2026-07-16 00:00</psexamPblancBegin>
+					<psexamPblancEnd>2026-07-21 00:00</psexamPblancEnd>
+					<prcttqRceptBegin>2026-07-31 00:00</prcttqRceptBegin>
+					<prcttqRceptEnd>2026-08-07 00:00</prcttqRceptEnd>
+					<prcttqRceptCanclBegin>2026-07-31 00:00</prcttqRceptCanclBegin>
+					<prcttqRceptCanclEnd>2026-08-10 00:00</prcttqRceptCanclEnd>
+					<prcttqApyexmOutptBegin>2026-08-21 00:00</prcttqApyexmOutptBegin>
+					<prcttqTestBegin>2026-08-29 00:00</prcttqTestBegin>
+					<prcttqPsexamPblancBegin>2026-09-07 00:00</prcttqPsexamPblancBegin>
+					<prcttqPsexamPblancEnd>2026-09-11 00:00</prcttqPsexamPblancEnd>
+				</item>
+			
+		</items>
+	</body>
+</response>
